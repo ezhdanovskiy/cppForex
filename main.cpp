@@ -81,6 +81,49 @@ double f3(const vector<double> &rates) {
     return  maxProfit;
 }
 
+double f4(const vector<double> &rates) { // TODO: not finished
+    if (rates.empty()) {
+        cerr << "Empty data!" << endl;
+        return 0;
+    }
+
+    size_t opCnt = 0;
+    double maxProfit = 0;
+    int bestBuyIndex = 0;
+    int bestBuyIndex0 = 0;
+    int bestSaleIndex = 0;
+    int bestSaleIndex0 = 0;
+    double bestBuy = rates[0];
+    double bestBuy0 = rates[0];
+    double bestSale = rates[0];
+    double bestSale0 = rates[0];
+    double profit = 0;
+    for (int i = 1; i < rates.size(); ++i) {
+        if (bestSale < rates[i]) {
+            bestSaleIndex = i;
+            bestSale = rates[i];
+            profit = bestSale - bestBuy;
+            opCnt++;
+            continue;
+        }
+        if (bestBuy > rates[i]) {
+            bestBuyIndex0 = bestBuyIndex;
+            bestBuyIndex = i;
+            bestBuy0 = bestBuy;
+            bestBuy = rates[i];
+            profit = bestSale - bestBuy;
+            opCnt++;
+            continue;
+        }
+
+    }
+    maxProfit = profit;
+    cout << "maxProfit=" << maxProfit << " bestBuyIndex=" << bestBuyIndex << " bestSaleIndex=" << bestSaleIndex
+    << " opCnt=" << opCnt << endl;
+
+    return  maxProfit;
+}
+
 int main() {
     char c;
     cin >> c;
@@ -100,5 +143,6 @@ int main() {
     f1(rates);
     f2(rates);
     f3(rates);
+    f4(rates);
     return 0;
 }
