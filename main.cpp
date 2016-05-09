@@ -82,13 +82,21 @@ double f3(const vector<double> &rates) {
 }
 
 int main() {
-    int cnt;
-    cin >> cnt;
-    vector<double> rates(cnt);
-    for (double &rate : rates) {
-        cin >> rate;
+    char c;
+    cin >> c;
+    if (c != '[') {
+        cerr << "Usage: cat input.json | ./forex" << endl;
+        return -1;
     }
-    cout << "rates[3]=" << rates[3] << endl;
+    vector<double> rates;
+    double rate;
+    while (c != ']') {
+        cin >> rate >> c;
+        rates.push_back(rate);
+    }
+    cout << "rates.size=" << rates.size() << " rates[3]=" << rates[3] << endl;
+
+
     f1(rates);
     f2(rates);
     f3(rates);
